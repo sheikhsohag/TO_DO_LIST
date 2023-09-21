@@ -5,7 +5,7 @@ from works.forms import TaskForm
 # Create your views here.
 
 def home(request):
-    return render(request, 'home.html')
+    return redirect('show_task')
 
 def add_task(request):
     if request.method == 'POST':
@@ -36,6 +36,10 @@ def edit_task(request, id):
             form.save()
             return redirect('show_task')
     return render(request, 'addtask.html', {'form':form})
+
+def complete(request):
+    task = TaskModel.objects.all()
+    return render(request, 'com_task.html', {'tasks':task})
 
 def com_task(request, id):
     tasks = TaskModel.objects.get(pk=id)
